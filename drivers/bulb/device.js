@@ -291,6 +291,31 @@ class AigostarBulbDevice extends Homey.Device {
     await this.setCapabilityValue('light_temperature', homeyTemp).catch(this.error);
     this._scheduleConfirmPoll();
   }
+
+  // -------------------------------------------------------------------
+  // Flow actions
+  // -------------------------------------------------------------------
+
+  // Set an explicit colour (hue/saturation as Homey 0-1), switch to colour mode,
+  // reflect it in the UI, and make sure the bulb is on so the colour is visible.
+  async flowSetColor(hue01, sat01) {
+    const h = Math.max(0, Math.min(1, hue01));
+    const s = Math.max(0, Math.min(1, sat01));
+    if (this.hasCapability('light_mode')) {
+      await this.setCapabilityValue('light_mode', 'color').catch(this.error);
+    }
+    await this.setCapabilityValue('light_hue', h).catch(this.error);
+    await this.setCapabilityValue('light_saturation', s).catch(this.error);
+    await this._onCapabilitiesSet({ light_hue: h, light_saturation: s });
+    if (this.getCapabilityValue('onoff') !== true) {
+      await this.setCapabilityValue('onoff', true).catch(this.error);
+      await this._onCapabilityOnoff(true);
+    }
+  }
+
+  async flowRandomColor() {
+    await this.flowSetColor(Math.random(), 1);
+  }
 }
 
 module.exports = AigostarBulbDevice;

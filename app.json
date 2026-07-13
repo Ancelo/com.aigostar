@@ -72,6 +72,35 @@
   "flow": {
     "actions": [
       {
+        "id": "set_color",
+        "title": { "en": "Set color", "it": "Imposta colore" },
+        "titleFormatted": { "en": "Set color to [[color]]", "it": "Imposta il colore su [[color]]" },
+        "args": [
+          { "name": "device", "type": "device", "filter": "driver_id=bulb" },
+          {
+            "name": "color",
+            "type": "dropdown",
+            "values": [
+              { "id": "red", "title": { "en": "Red", "it": "Rosso" } },
+              { "id": "orange", "title": { "en": "Orange", "it": "Arancione" } },
+              { "id": "yellow", "title": { "en": "Yellow", "it": "Giallo" } },
+              { "id": "green", "title": { "en": "Green", "it": "Verde" } },
+              { "id": "cyan", "title": { "en": "Cyan", "it": "Ciano" } },
+              { "id": "blue", "title": { "en": "Blue", "it": "Blu" } },
+              { "id": "purple", "title": { "en": "Purple", "it": "Viola" } },
+              { "id": "pink", "title": { "en": "Pink", "it": "Rosa" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "random_color",
+        "title": { "en": "Set a random color", "it": "Imposta un colore casuale" },
+        "args": [
+          { "name": "device", "type": "device", "filter": "driver_id=bulb" }
+        ]
+      },
+      {
         "id": "set_color_temperature_percent",
         "title": { "en": "Set color temperature percentage", "it": "Imposta percentuale temperatura colore" },
         "titleFormatted": {
