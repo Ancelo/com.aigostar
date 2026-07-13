@@ -1,37 +1,61 @@
 {
   "id": "com.aigostar.unofficial",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
-  "platforms": ["local"],
-  "name": { "en": "Aigostar", "it": "Aigostar" },
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Aigostar",
+    "it": "Aigostar"
+  },
   "description": {
     "en": "Set the right light in every room",
     "it": "La luce giusta in ogni stanza"
   },
-  "category": ["lights"],
+  "category": [
+    "lights"
+  ],
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",
     "large": "/assets/images/large.png",
     "xlarge": "/assets/images/xlarge.png"
   },
-  "author": { "name": "Ancelo", "email": "ilsovversivo@gmail.com" },
+  "author": {
+    "name": "Ancelo",
+    "email": "ilsovversivo@gmail.com"
+  },
   "contributors": {
     "developers": [
-      { "name": "Marco Micheli (ha-aigostar, MIT)" }
+      {
+        "name": "Marco Micheli (ha-aigostar, MIT)"
+      }
     ]
   },
   "homepage": "https://github.com/Ancelo/com.aigostar",
   "source": "https://github.com/Ancelo/com.aigostar",
   "support": "https://github.com/Ancelo/com.aigostar/issues",
-  "bugs": { "url": "https://github.com/Ancelo/com.aigostar/issues" },
+  "bugs": {
+    "url": "https://github.com/Ancelo/com.aigostar/issues"
+  },
   "brandColor": "#FF6B00",
-  "tags": { "en": ["aigostar", "aigosmart", "wifi bulb", "rgb light"] },
+  "tags": {
+    "en": [
+      "aigostar",
+      "aigosmart",
+      "wifi bulb",
+      "rgb light"
+    ]
+  },
   "drivers": [
     {
       "id": "bulb",
-      "name": { "en": "Aigostar Bulb", "it": "Lampadina Aigostar" },
+      "name": {
+        "en": "Aigostar Bulb",
+        "it": "Lampadina Aigostar"
+      },
       "class": "light",
       "images": {
         "small": "/drivers/bulb/assets/images/small.png",
@@ -46,8 +70,12 @@
         "light_saturation",
         "light_mode"
       ],
-      "platforms": ["local"],
-      "connectivity": ["cloud"],
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
         {
           "id": "login"
@@ -63,7 +91,10 @@
         {
           "id": "iot_id",
           "type": "label",
-          "label": { "en": "Device ID", "it": "ID dispositivo" },
+          "label": {
+            "en": "Device ID",
+            "it": "ID dispositivo"
+          },
           "value": ""
         }
       ]
@@ -73,36 +104,104 @@
     "actions": [
       {
         "id": "set_color",
-        "title": { "en": "Set color", "it": "Imposta colore" },
-        "titleFormatted": { "en": "Set color to [[color]]", "it": "Imposta il colore su [[color]]" },
+        "title": {
+          "en": "Set color",
+          "it": "Imposta colore"
+        },
+        "titleFormatted": {
+          "en": "Set color to [[color]]",
+          "it": "Imposta il colore su [[color]]"
+        },
         "args": [
-          { "name": "device", "type": "device", "filter": "driver_id=bulb" },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=bulb"
+          },
           {
             "name": "color",
             "type": "dropdown",
             "values": [
-              { "id": "red", "title": { "en": "Red", "it": "Rosso" } },
-              { "id": "orange", "title": { "en": "Orange", "it": "Arancione" } },
-              { "id": "yellow", "title": { "en": "Yellow", "it": "Giallo" } },
-              { "id": "green", "title": { "en": "Green", "it": "Verde" } },
-              { "id": "cyan", "title": { "en": "Cyan", "it": "Ciano" } },
-              { "id": "blue", "title": { "en": "Blue", "it": "Blu" } },
-              { "id": "purple", "title": { "en": "Purple", "it": "Viola" } },
-              { "id": "pink", "title": { "en": "Pink", "it": "Rosa" } }
+              {
+                "id": "red",
+                "title": {
+                  "en": "Red",
+                  "it": "Rosso"
+                }
+              },
+              {
+                "id": "orange",
+                "title": {
+                  "en": "Orange",
+                  "it": "Arancione"
+                }
+              },
+              {
+                "id": "yellow",
+                "title": {
+                  "en": "Yellow",
+                  "it": "Giallo"
+                }
+              },
+              {
+                "id": "green",
+                "title": {
+                  "en": "Green",
+                  "it": "Verde"
+                }
+              },
+              {
+                "id": "cyan",
+                "title": {
+                  "en": "Cyan",
+                  "it": "Ciano"
+                }
+              },
+              {
+                "id": "blue",
+                "title": {
+                  "en": "Blue",
+                  "it": "Blu"
+                }
+              },
+              {
+                "id": "purple",
+                "title": {
+                  "en": "Purple",
+                  "it": "Viola"
+                }
+              },
+              {
+                "id": "pink",
+                "title": {
+                  "en": "Pink",
+                  "it": "Rosa"
+                }
+              }
             ]
           }
         ]
       },
       {
         "id": "random_color",
-        "title": { "en": "Set a random color", "it": "Imposta un colore casuale" },
+        "title": {
+          "en": "Set a random color",
+          "it": "Imposta un colore casuale"
+        },
         "args": [
-          { "name": "device", "type": "device", "filter": "driver_id=bulb" }
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=bulb"
+          }
         ]
       },
       {
         "id": "set_color_temperature_percent",
-        "title": { "en": "Set color temperature percentage", "it": "Imposta percentuale temperatura colore" },
+        "title": {
+          "en": "Set color temperature percentage",
+          "it": "Imposta percentuale temperatura colore"
+        },
         "titleFormatted": {
           "en": "Set color temperature to [[percent]] %",
           "it": "Imposta la temperatura colore al [[percent]] %"
@@ -122,7 +221,10 @@
             "type": "number",
             "min": 0,
             "max": 100,
-            "title": { "en": "Percent", "it": "Percentuale" }
+            "title": {
+              "en": "Percent",
+              "it": "Percentuale"
+            }
           }
         ]
       }

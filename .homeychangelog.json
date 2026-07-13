@@ -2,5 +2,8 @@
   "0.1.0": {
     "en": "Initial release. Control Aigostar smart bulbs from Homey: on/off, brightness, warm/cool white, color and light mode. Flow actions to set a color, a random color, or the color temperature by percentage.",
     "it": "Prima versione. Controlla le lampadine smart Aigostar da Homey: on/off, luminosità, bianco caldo/freddo, colore e modalità luce. Azioni Flow per impostare un colore, un colore casuale o la temperatura colore in percentuale."
+  },
+  "0.2.0": {
+    "en": "stability"
   }
 }
