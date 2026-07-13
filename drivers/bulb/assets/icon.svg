@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <g fill="none" stroke="#FF6B00" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- glass -->
+    <circle cx="50" cy="42" r="24"/>
+    <!-- filament -->
+    <polyline points="41,44 46,34 50,41 54,34 59,44"/>
+    <!-- screw base -->
+    <path d="M39 62 L61 62 L58 74 L42 74 Z"/>
+    <line x1="43" y1="67" x2="57" y2="67"/>
+    <line x1="44" y1="71" x2="56" y2="71"/>
+    <line x1="47" y1="79" x2="53" y2="79"/>
+  </g>
+</svg>

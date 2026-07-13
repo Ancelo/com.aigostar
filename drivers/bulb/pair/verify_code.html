@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: -apple-system, sans-serif; padding: 24px; }
+    input { width: 100%; padding: 10px; font-size: 16px; margin-top: 6px; margin-bottom: 16px; box-sizing: border-box; letter-spacing: 2px; }
+    button { padding: 10px 24px; font-size: 16px; cursor: pointer; }
+    #error { color: #c0392b; margin-top: 12px; min-height: 20px; }
+    #debug { color: #888; font-size: 11px; margin-top: 24px; white-space: pre-wrap; }
+    p { color: #555; }
+  </style>
+</head>
+<body>
+  <h2>Verification code</h2>
+  <p>Aigostar sent a verification code to your email. Enter it below to continue.</p>
+
+  <input type="text" id="code" placeholder="123456" autofocus />
+  <button id="submit">Continue</button>
+  <div id="error"></div>
+  <div id="debug"></div>
+
+  <script type="application/javascript">
+    function dbg(msg) {
+      var el = document.getElementById('debug');
+      el.textContent += msg + '\n';
+    }
+
+    window.addEventListener('load', function () {
+      dbg('Page loaded.');
+      dbg('Homey object available: ' + (typeof Homey !== 'undefined'));
+
+      var errorEl = document.getElementById('error');
+      var submitBtn = document.getElementById('submit');
+
+      submitBtn.addEventListener('click', function () {
+        dbg('Submit clicked.');
+        errorEl.textContent = '';
+        var code = document.getElementById('code').value.trim();
+        if (!code) {
+          errorEl.textContent = 'Please enter the code.';
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Verifying...';
+        dbg('Calling Homey.emit("verify_code", ...)');
+
+        Homey.emit('verify_code', { code: code })
+          .then(function (result) {
+            dbg('Homey.emit resolved: ' + JSON.stringify(result));
+            dbg('Navigating to list_devices view...');
+            Homey.showView('list_devices');
+          })
+          .catch(function (err) {
+            dbg('Homey.emit rejected: ' + ((err && err.message) || String(err)));
+            errorEl.textContent = (err && err.message) || String(err);
+          })
+          .finally(function () {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Continue';
+          });
+      });
+    });
+  </script>
+</body>
+</html>

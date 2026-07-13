@@ -1,0 +1,102 @@
+{
+  "id": "com.aigostar.unofficial",
+  "version": "0.1.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": ["local"],
+  "name": { "en": "Aigostar", "it": "Aigostar" },
+  "description": {
+    "en": "Set the right light in every room",
+    "it": "La luce giusta in ogni stanza"
+  },
+  "category": ["lights"],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": { "name": "Ancelo", "email": "ilsovversivo@gmail.com" },
+  "contributors": {
+    "developers": [
+      { "name": "Marco Micheli (ha-aigostar, MIT)" }
+    ]
+  },
+  "homepage": "https://github.com/Ancelo/com.aigostar",
+  "source": "https://github.com/Ancelo/com.aigostar",
+  "support": "https://github.com/Ancelo/com.aigostar/issues",
+  "bugs": { "url": "https://github.com/Ancelo/com.aigostar/issues" },
+  "brandColor": "#FF6B00",
+  "tags": { "en": ["aigostar", "aigosmart", "wifi bulb", "rgb light"] },
+  "drivers": [
+    {
+      "id": "bulb",
+      "name": { "en": "Aigostar Bulb", "it": "Lampadina Aigostar" },
+      "class": "light",
+      "images": {
+        "small": "/drivers/bulb/assets/images/small.png",
+        "large": "/drivers/bulb/assets/images/large.png",
+        "xlarge": "/drivers/bulb/assets/images/xlarge.png"
+      },
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_temperature",
+        "light_hue",
+        "light_saturation",
+        "light_mode"
+      ],
+      "platforms": ["local"],
+      "connectivity": ["cloud"],
+      "pair": [
+        {
+          "id": "login"
+        },
+        {
+          "id": "verify_code"
+        },
+        {
+          "id": "list_devices"
+        }
+      ],
+      "settings": [
+        {
+          "id": "iot_id",
+          "type": "label",
+          "label": { "en": "Device ID", "it": "ID dispositivo" },
+          "value": ""
+        }
+      ]
+    }
+  ],
+  "flow": {
+    "actions": [
+      {
+        "id": "set_color_temperature_percent",
+        "title": { "en": "Set color temperature percentage", "it": "Imposta percentuale temperatura colore" },
+        "titleFormatted": {
+          "en": "Set color temperature to [[percent]] %",
+          "it": "Imposta la temperatura colore al [[percent]] %"
+        },
+        "hint": {
+          "en": "0 % is the warmest white, 100 % is the coolest white.",
+          "it": "0 % è il bianco più caldo, 100 % è il bianco più freddo."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=bulb"
+          },
+          {
+            "name": "percent",
+            "type": "number",
+            "min": 0,
+            "max": 100,
+            "title": { "en": "Percent", "it": "Percentuale" }
+          }
+        ]
+      }
+    ]
+  }
+}

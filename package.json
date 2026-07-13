@@ -1,0 +1,10 @@
+{
+  "name": "com.aigostar.unofficial",
+  "version": "0.1.0",
+  "private": true,
+  "main": "app.js",
+  "dependencies": {},
+  "devDependencies": {
+    "homey": "^3.5.1"
+  }
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: -apple-system, sans-serif; padding: 24px; }
+    input { width: 100%; padding: 10px; font-size: 16px; margin-top: 6px; margin-bottom: 16px; box-sizing: border-box; }
+    label { font-weight: 600; font-size: 14px; }
+    button { padding: 10px 24px; font-size: 16px; cursor: pointer; }
+    #error { color: #c0392b; margin-top: 12px; min-height: 20px; }
+    #debug { color: #ff0000; font-size: 13px; margin-top: 24px; white-space: pre-wrap; border: 1px solid #ff0000; padding: 8px; }
+    h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <h2>Sign in to AigoSmart</h2>
+  <p>Enter the same email and password you use in the AigoSmart app.</p>
+
+  <label for="email">Email</label>
+  <input type="email" id="email" placeholder="name@example.com" autofocus />
+
+  <label for="password">Password</label>
+  <input type="password" id="password" />
+
+  <button onclick="handleClick()">Continue</button>
+  <div id="error"></div>
+  <div id="debug">DEBUG BOX: if you can read this, the page rendered.</div>
+
+  <script type="application/javascript">
+    document.getElementById('debug').textContent =
+      'DEBUG: script tag executed. Homey defined: ' + (typeof Homey !== 'undefined');
+
+    function handleClick() {
+      document.getElementById('debug').textContent = 'DEBUG: handleClick() fired.';
+
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+
+      if (typeof Homey === 'undefined') {
+        document.getElementById('debug').textContent += '\nERROR: Homey object is undefined!';
+        return;
+      }
+
+      document.getElementById('debug').textContent += '\nCalling Homey.emit...';
+
+      Homey.emit('login', { username: email, password: password })
+        .then(function (result) {
+          document.getElementById('debug').textContent +=
+            '\nSUCCESS: ' + JSON.stringify(result);
+          if (result && result.needsCode) {
+            Homey.showView('verify_code');
+          } else {
+            Homey.showView('list_devices');
+          }
+        })
+        .catch(function (err) {
+          document.getElementById('debug').textContent +=
+            '\nERROR: ' + ((err && err.message) || String(err));
+        });
+    }
+  </script>
+</body>
+</html>

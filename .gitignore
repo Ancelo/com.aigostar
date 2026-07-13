@@ -1,0 +1,5 @@
+.homeybuild/
+node_modules/
+env.json
+*.log
+.DS_Store
