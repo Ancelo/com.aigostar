@@ -1,0 +1,28 @@
+{
+  "pair": {
+    "login": {
+      "title": "Accedi ad AigoSmart",
+      "subtitle": "Inserisci la stessa email e password che usi nell'app AigoSmart.",
+      "email": "Email",
+      "password": "Password",
+      "continue": "Continua"
+    },
+    "verify_code": {
+      "title": "Codice di verifica",
+      "subtitle": "Aigostar ha inviato un codice di verifica alla tua email. Inseriscilo qui per continuare.",
+      "continue": "Continua",
+      "verifying": "Verifica in corso…",
+      "enterCode": "Inserisci il codice."
+    },
+    "list_devices": {
+      "title": "Dispositivi trovati",
+      "loading": "Caricamento dei dispositivi Aigostar…",
+      "found": "Trovati {{count}} dispositivi:",
+      "none": "Nessun dispositivo trovato sul tuo account Aigostar.",
+      "add": "Aggiungi",
+      "adding": "Aggiunta…",
+      "added": "Aggiunto",
+      "done": "Fine"
+    }
+  }
+}

@@ -8,49 +8,63 @@
       padding: 12px 0; border-bottom: 1px solid #eee;
     }
     button { padding: 10px 24px; font-size: 16px; cursor: pointer; margin-top: 20px; }
-    .add-btn { padding: 6px 14px; font-size: 14px; }
+    .add-btn { padding: 6px 14px; font-size: 14px; margin-top: 0; }
+    button:disabled { opacity: 0.6; cursor: default; }
     #error { color: #c0392b; margin-top: 12px; min-height: 20px; }
     #status { color: #555; }
+    h2 { margin-top: 0; }
   </style>
 </head>
 <body>
-  <h2>Devices found</h2>
-  <p id="status">Loading your Aigostar devices...</p>
+  <h2 id="title"></h2>
+  <p id="status"></p>
   <div id="list"></div>
   <div id="error"></div>
+  <button id="done"></button>
 
   <script type="application/javascript">
-    const listEl = document.getElementById('list');
-    const statusEl = document.getElementById('status');
-    const errorEl = document.getElementById('error');
+    function t(key, fallback) {
+      try { var v = Homey.__(key); return (v && v !== key) ? v : fallback; }
+      catch (e) { return fallback; }
+    }
+    var listEl = document.getElementById('list');
+    var statusEl = document.getElementById('status');
+    var errorEl = document.getElementById('error');
+
+    document.getElementById('title').textContent = t('pair.list_devices.title', 'Devices found');
+    statusEl.textContent = t('pair.list_devices.loading', 'Loading your Aigostar devices…');
+    document.getElementById('done').textContent = t('pair.list_devices.done', 'Done');
 
     async function load() {
       try {
-        const devices = await Homey.emit('list_devices', {});
-        statusEl.textContent = devices.length
-          ? `Found ${devices.length} device(s):`
-          : 'No devices found on your Aigostar account.';
+        var devices = await Homey.emit('list_devices', {});
+        if (devices.length) {
+          statusEl.textContent = t('pair.list_devices.found', 'Found {{count}} device(s):')
+            .replace('{{count}}', devices.length);
+        } else {
+          statusEl.textContent = t('pair.list_devices.none', 'No devices found on your Aigostar account.');
+        }
 
-        devices.forEach((dev) => {
-          const row = document.createElement('div');
+        devices.forEach(function (dev) {
+          var row = document.createElement('div');
           row.className = 'device-row';
 
-          const label = document.createElement('span');
+          var label = document.createElement('span');
           label.textContent = dev.name;
 
-          const btn = document.createElement('button');
+          var btn = document.createElement('button');
           btn.className = 'add-btn';
-          btn.textContent = 'Add';
+          btn.textContent = t('pair.list_devices.add', 'Add');
 
-          btn.addEventListener('click', async () => {
+          btn.addEventListener('click', async function () {
             btn.disabled = true;
-            btn.textContent = 'Adding...';
+            btn.textContent = t('pair.list_devices.adding', 'Adding…');
             try {
               await Homey.createDevice(dev);
-              btn.textContent = 'Added ✓';
+              btn.textContent = t('pair.list_devices.added', 'Added') + ' ✓';
             } catch (err) {
               btn.disabled = false;
-              btn.textContent = 'Add';
+              btn.textContent = t('pair.list_devices.add', 'Add');
               errorEl.textContent = (err && err.message) || String(err);
             }
           });
@@ -65,14 +79,8 @@
       }
     }
 
+    document.getElementById('done').addEventListener('click', function () { Homey.done(); });
     load();
-  </script>
-
-  <button id="done">Done</button>
-  <script type="application/javascript">
-    document.getElementById('done').addEventListener('click', () => {
-      Homey.done();
-    });
   </script>
 </body>
 </html>

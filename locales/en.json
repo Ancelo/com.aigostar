@@ -1,7 +1,28 @@
 {
   "pair": {
+    "login": {
+      "title": "Sign in to AigoSmart",
+      "subtitle": "Enter the same email and password you use in the AigoSmart app.",
+      "email": "Email",
+      "password": "Password",
+      "continue": "Continue"
+    },
     "verify_code": {
-      "title": "Email verification needed"
+      "title": "Verification code",
+      "subtitle": "Aigostar sent a verification code to your email. Enter it below to continue.",
+      "continue": "Continue",
+      "verifying": "Verifying…",
+      "enterCode": "Please enter the code."
+    },
+    "list_devices": {
+      "title": "Devices found",
+      "loading": "Loading your Aigostar devices…",
+      "found": "Found {{count}} device(s):",
+      "none": "No devices found on your Aigostar account.",
+      "add": "Add",
+      "adding": "Adding…",
+      "added": "Added",
+      "done": "Done"
     }
   }
 }

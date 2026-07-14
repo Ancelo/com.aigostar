@@ -5,61 +5,49 @@
     body { font-family: -apple-system, sans-serif; padding: 24px; }
     input { width: 100%; padding: 10px; font-size: 16px; margin-top: 6px; margin-bottom: 16px; box-sizing: border-box; letter-spacing: 2px; }
     button { padding: 10px 24px; font-size: 16px; cursor: pointer; }
+    button:disabled { opacity: 0.6; cursor: default; }
     #error { color: #c0392b; margin-top: 12px; min-height: 20px; }
-    #debug { color: #888; font-size: 11px; margin-top: 24px; white-space: pre-wrap; }
     p { color: #555; }
+    h2 { margin-top: 0; }
   </style>
 </head>
 <body>
-  <h2>Verification code</h2>
-  <p>Aigostar sent a verification code to your email. Enter it below to continue.</p>
+  <h2 id="title"></h2>
+  <p id="subtitle"></p>
 
   <input type="text" id="code" placeholder="123456" autofocus />
-  <button id="submit">Continue</button>
+  <button id="submit"></button>
   <div id="error"></div>
-  <div id="debug"></div>
 
   <script type="application/javascript">
-    function dbg(msg) {
-      var el = document.getElementById('debug');
-      el.textContent += msg + '\n';
+    function t(key, fallback) {
+      try { var v = Homey.__(key); return (v && v !== key) ? v : fallback; }
+      catch (e) { return fallback; }
     }
+    var LBL_CONTINUE = t('pair.verify_code.continue', 'Continue');
+    document.getElementById('title').textContent = t('pair.verify_code.title', 'Verification code');
+    document.getElementById('subtitle').textContent = t('pair.verify_code.subtitle', 'Aigostar sent a verification code to your email. Enter it below to continue.');
 
-    window.addEventListener('load', function () {
-      dbg('Page loaded.');
-      dbg('Homey object available: ' + (typeof Homey !== 'undefined'));
+    var errorEl = document.getElementById('error');
+    var submitBtn = document.getElementById('submit');
+    submitBtn.textContent = LBL_CONTINUE;
 
-      var errorEl = document.getElementById('error');
-      var submitBtn = document.getElementById('submit');
-
-      submitBtn.addEventListener('click', function () {
-        dbg('Submit clicked.');
-        errorEl.textContent = '';
-        var code = document.getElementById('code').value.trim();
-        if (!code) {
-          errorEl.textContent = 'Please enter the code.';
-          return;
-        }
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Verifying...';
-        dbg('Calling Homey.emit("verify_code", ...)');
-
-        Homey.emit('verify_code', { code: code })
-          .then(function (result) {
-            dbg('Homey.emit resolved: ' + JSON.stringify(result));
-            dbg('Navigating to list_devices view...');
-            Homey.showView('list_devices');
-          })
-          .catch(function (err) {
-            dbg('Homey.emit rejected: ' + ((err && err.message) || String(err)));
-            errorEl.textContent = (err && err.message) || String(err);
-          })
-          .finally(function () {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Continue';
-          });
-      });
+    submitBtn.addEventListener('click', function () {
+      errorEl.textContent = '';
+      var code = document.getElementById('code').value.trim();
+      if (!code) {
+        errorEl.textContent = t('pair.verify_code.enterCode', 'Please enter the code.');
+        return;
+      }
+      submitBtn.disabled = true;
+      submitBtn.textContent = t('pair.verify_code.verifying', 'Verifying…');
+      Homey.emit('verify_code', { code: code })
+        .then(function () { Homey.showView('list_devices'); })
+        .catch(function (err) { errorEl.textContent = (err && err.message) || String(err); })
+        .finally(function () {
+          submitBtn.disabled = false;
+          submitBtn.textContent = LBL_CONTINUE;
+        });
     });
   </script>
 </body>
